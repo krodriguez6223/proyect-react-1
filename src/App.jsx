@@ -1,21 +1,20 @@
 import { useState } from 'react'
 
+import Header from './components/Header';
+import Formulario from './components/Formulario';
+import ListadoPaciente from './components/ListadoPaciente';
+
+
 function App() {
 
-const sumar = () =>{
-  const valor1 = 25;
-  const valor2 = 255;
- 
-  return valor1 + valor2;
-}
-
-
   return (
-  <div>
-      <h3>{'Hola mundo dev'.toUpperCase()} </h3>
-      <p>el valor de la suma es de: {sumar()}</p>
-     
-  </div>
+    <div className="container mx-auto mt-20">
+        <Header />
+        <div className='mt-12 md:flex'>
+          <Formulario />
+          <ListadoPaciente />
+        </div>
+    </div>
   )
 }
 
