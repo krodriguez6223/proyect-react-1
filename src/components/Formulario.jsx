@@ -10,6 +10,8 @@ const Formulario = () => {
   const [email, setEmail] = useState('')
   const [alta, setAlta] = useState('')
   const [sintomas, setSintomase] = useState('');
+
+  const[ error, setError] = useState(false)
   
   const handleSubmit = (e) =>{
     e.preventDefault()
