@@ -1,5 +1,6 @@
 
 const Header = () => {
+
   return (
     <>
         <h1 className=" font-black text-5xl text-center  text-indigo-600  md:w-2/3 mx-auto">Seguimiento Paciente{''}

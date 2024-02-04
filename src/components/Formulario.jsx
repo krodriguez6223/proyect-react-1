@@ -2,28 +2,56 @@
 //rfce
 
 import { useState, useEffect } from 'react'
+import Alerta from './alerta';
 
-
-const Formulario = () => {
+const Formulario = ({setPacientes, pacientes}) => {
   const [nombre, setNombre] = useState('');
   const [propietario, setPropietario] = useState('')
   const [email, setEmail] = useState('')
   const [alta, setAlta] = useState('')
   const [sintomas, setSintomase] = useState('');
-
   const[ error, setError] = useState(false)
+
+  const generarid = () => {
+    const fecha = Date.now().toString(20)
+    const random = Math.random().toString(20).substring(2)
+    
+    return  fecha + random;
+  }
+
   
   const handleSubmit = (e) =>{
     e.preventDefault()
-     //validacion del formulario
-     if ([nombre, propietario, email, alta, sintomas].includes('') ) {
-        console.log('hay al menos un camp vacio')
-     }else{
-      console.log('todos llenos')
-     }
-  }
-  
+    //validacion del formulario
+    if ([nombre, propietario, email, alta, sintomas].includes('') ) {
+      setError(true);
+      return
+    }
+    setError(false)
 
+    //Objeto paciecnte
+
+    const objetoPaciente = {
+        nombre,
+        propietario,
+        email,
+        alta,
+        sintomas,
+        id: generarid()
+    }
+
+    setPacientes([...pacientes, objetoPaciente])
+
+    //Reiniciar el formulario
+    setNombre('');
+    setPropietario('');
+    setEmail('');
+    setAlta('');
+    setSintomase('');
+
+  }
+
+  
 
   return (
     <div className='md:w-1/2 lg:w-2/5'>
@@ -33,7 +61,9 @@ const Formulario = () => {
 
       <form 
           onSubmit={handleSubmit}
-          className='bg-white shadow-md rounded-lg py-10 px-5 mx-5'>
+          className='bg-white shadow-md rounded-lg py-10 px-5 mx-5'
+          >
+
         <div className='mb-5'>
           <label
             className='block text-gray-700 uppercase font-bold'
@@ -47,7 +77,7 @@ const Formulario = () => {
             className='border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md'
             value={nombre}
             onChange={(e)=> setNombre(e.target.value)}
-          
+            
           />
         </div>
         <div className='mb-5'>
@@ -114,16 +144,20 @@ const Formulario = () => {
             />
 
         </div>
+
+        { error && 
+           <Alerta>Todos los campos son obligatorios</Alerta>
+        }
         <input type="submit"
           className='bg-indigo-600 hover:bg-indigo-700 cursor-pointer transition-colors w-full p-3 text-white uppercase font-bold rounded-md'
           value="Agregar paciente"
-         
+          
           />
       </form>
 
     </div>
 
-  )
+)
 }
 
 export default Formulario
